@@ -1,19 +1,22 @@
 <?php
-$host = "10.10.10.53";
-$port = "8765";
-$dbname = "bbravo";
-$user = "";
-$password = "pasantebb";
+$serverName = "10.10.10.53,8765";
+$connectionOptions = array(
+    "Database" => "GADP_AZUAY",
+    "Uid" => "bbravo",
+    "PWD" => "pasantebb"
+);
 
-$connection_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
+// Establecer la conexión
+$conn = sqlsrv_connect($serverName, $connectionOptions);
 
-$dbconn = pg_connect($connection_string);
-
-if (!$dbconn) {
-    die("Error al conectar a la base de datos.");
+if (!$conn) {
+    die("Error al conectar a la base de datos: " . print_r(sqlsrv_errors(), true));
 } 
 
 echo "Conexión exitosa";
-pg_close($dbconn);
 
+// Aquí puedes realizar operaciones en la base de datos.
+
+// Cerrar la conexión cuando hayas terminado
+sqlsrv_close($conn);
 ?>
