@@ -6,16 +6,21 @@ require_once('conf.php');
         if (isset($_POST['cedula']) and isset($_POST['check']) == true) {//Incio cambios
             $cedula = $_POST['cedula'];
             $san_cedula = filter_var($cedula, FILTER_SANITIZE_NUMBER_INT);
-        
+            
+
             try {
                 $sql = "SELECT he.name FROM hr_employee he WHERE he.employee_code = '$san_cedula'";
-                foreach ($conn->query($sql) as $row) {
-                    $nombre = $row['name'];
-                    $id = $row['NOMINA_ID'];
-                    print($nombre);
+                $result = pg_query($dbconn, $sql); // Cambio esta línea para utilizar pg_query
+                if ($result) {
+                    while ($row = pg_fetch_assoc($result)) {
+                        $nombre = $row['name'];
+                        print($nombre);
+                    }
+                } else {
+                    print("ERROR");
                 }
             } catch (Exception $e) {
-                print_r("ERROR");
+                print("ERROR");
             }
         }//Fin cambios
         

@@ -6,7 +6,7 @@ require_once('conf.php');
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Marcación GPA</title>
+    <title>Marcación GPAxd</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
     <style>
