@@ -1,22 +1,17 @@
 <?php
-$serverName = "10.10.10.53,8765";
-$connectionOptions = array(
-    "Database" => "GADP_AZUAY",
-    "Uid" => "bbravo",
-    "PWD" => "pasantebb"
-);
+$host = "10.10.10.53";
+$port = "8765"; // El puerto por defecto de PostgreSQL es 5432
+$dbname = "GADP_AZUAY";
+$user = "bbravo";
+$password = "pasantebb";
 
-// Establecer la conexión
-$conn = sqlsrv_connect($serverName, $connectionOptions);
+$connection_string = "host=$host port=$port dbname=$dbname user=$user password=$password";
 
-if (!$conn) {
-    die("Error al conectar a la base de datos: " . print_r(sqlsrv_errors(), true));
+$dbconn = pg_connect($connection_string);
+
+if (!$dbconn) {
+    die("Error al conectar a la base de datos: " . pg_last_error());
 } 
 
 echo "Conexión exitosa";
-
-// Aquí puedes realizar operaciones en la base de datos.
-
-// Cerrar la conexión cuando hayas terminado
-sqlsrv_close($conn);
 ?>
