@@ -3,23 +3,22 @@ require_once('conf.php');
 ?>
 <?php
     if(isset($_POST) ){   
-        if(isset($_POST['cedula']) and isset($_POST['check'])==true){
-            $cedula	=$_POST['cedula'];
-            $san_cedula = filter_var($cedula,FILTER_SANITIZE_NUMBER_INT); 
+        if (isset($_POST['cedula']) and isset($_POST['check']) == true) {//Incio cambios
+            $cedula = $_POST['cedula'];
+            $san_cedula = filter_var($cedula, FILTER_SANITIZE_NUMBER_INT);
+        
             try {
-                //consulta marcacion y muestra
-                $sql = "SELECT NOMINA_ID,NOMINA_APE, NOMINA_NOM FROM NOMINA WHERE NOMINA_COD= '$san_cedula'";
-            foreach ($conn->query($sql) as $row){
-                $nombre = $row['NOMINA_APE']." ".$row['NOMINA_NOM'] ;
-                $id=$row['NOMINA_ID'];               
-                        print_r($nombre);
+                $sql = "SELECT he.name FROM hr_employee he WHERE he.employee_code = '$san_cedula'";
+                foreach ($conn->query($sql) as $row) {
+                    $nombre = $row['name'];
+                    $id = $row['NOMINA_ID'];
+                    print($nombre);
                 }
             } catch (Exception $e) {
-               print_r("ERROR");
-               //echo 'Excepción capturada: ',  $e->getMessage(), "\n";
-           }    
-        }
-  
+                print_r("ERROR");
+            }
+        }//Fin cambios
+        
         if(isset($_POST['cedula']) and isset($_POST['marcar'])==true){
             $cedula	= $_POST['cedula'];
             $san_cedula = filter_var($cedula,FILTER_SANITIZE_NUMBER_INT);    

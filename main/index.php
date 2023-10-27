@@ -240,124 +240,125 @@ require_once('conf.php');
     </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<!--Inicio cambios-->
 <script type="text/javascript">
-	  $(function(){
-		$('#submit').click(function(e){
-			var valid = this.form.checkValidity();
-			if(valid){
-			var cedula 	= $('#cedula').val();
-            var marcar = true;
-                e.preventDefault();	
-                    $.ajax({
-                        type: 'POST',
-                        url: 'srv.php',
-                        data: {cedula: cedula, marcar:true},
-                        success: function(data){
+    $(function(){
+        $('#submit').click(function(e){
+            var valid = this.form.checkValidity();
+            if(valid){
+                var cedula = $('#cedula').val();
+                var marcar = true;
+                e.preventDefault();
+                $.ajax({
+                    type: 'POST',
+                    url: 'srv.php',
+                    data: {cedula: cedula, marcar: true},
+                    success: function(data){
                         if (data.includes("ERROR")) {
-                                Swal.fire({
-                                    'title': 'Algo salio mal.',
-                                    'text': 'Algo salio mal, intentelo nuevamente.',
-                                    'type': 'error'
-                                    });                             
-                             }
-                             else{
-                                Swal.fire({
-                                        'title': 'Marcación Exitosa',
-                                        'html': data,
-                                        'type': 'success'                                       
-                                        }).then((data) => {
-                                            $('#cedula').val("");
-                                            $('#usuario').val("");
-                                            $("#submit").hide();
-                                        });
-
-                             }                                                    
-                                                           
-                        },
-                        error: function(data){
                             Swal.fire({
-                                    'title': 'Algo salio mal.',
-                                    'text': 'Algo salio mal, intentelo nuevamente.',
-                                    'type': 'error'
-                                    })
-                        }
-                    });
-			
-			}else{
-		
-			}
-
-		});		
-	}); 
-    $("#submit").hide();
-    $('#cedula').bind('input propertychange', function() {
-        var d = new Date();
-        var n = d.toTimeString();
-        $("#submit").hide();
-         $('#usuario').val("");
-        var cedula 	= $('#cedula').val();
-        if(cedula.length==10){
-            var check = true;
-            $.ajax({
-                        type: 'post',
-                        url: 'srv.php',
-                        data: {cedula: cedula, check:true},
-                        success: function(data){                      
-                        if(data.length!=2){
-                                $('#usuario').val(data);
-                                $("#submit").show();
-                            }else{
-                                $('#usuario').val("Funcionario no existe");
-                                $('#hora').val("");
+                                'title': 'Algo salió mal.',
+                                'text': 'Algo salió mal, inténtelo nuevamente.',
+                                'type': 'error'
+                            });
+                        } else {
+                            Swal.fire({
+                                'title': 'Marcación Exitosa',
+                                'html': data,
+                                'type': 'success'
+                            }).then((data) => {
+                                $('#cedula').val("");
+                                $('#usuario').val("");
                                 $("#submit").hide();
-                            }
-                        },
-                        error: function(data){
+                            });
                         }
-                    });
-         
-            }
-    }); 
-    $(document).ready(function() {
-        actualizarReloj();
-        setInterval(actualizarReloj, 1000);
-    })
-    function actualizarReloj() {
-        var date = new Date(Date.now() - 7000);
-    $('.digital-clock').css({'color': '#fff', 'text-shadow': '0 0 6px #ff0'});
-    function addZero(x) {
-        if (x < 10) {
-        return x = '0' + x;
-        } else {
-        return x;
-        }
-    }
-        var h = addZero(date.getHours());
-        var m = addZero(date.getMinutes());
-        var s = addZero(date.getSeconds()); 
-    $('.digital-clock').text(h + ':' + m + ':' + s)
-    }
-    
-    //No permit el Enter
-    $(document).on("keydown", "form", function(event) { 
-        return event.key != "Enter";
-    });
+                    },
+                    error: function(data){
+                        Swal.fire({
+                            'title': 'Algo salió mal.',
+                            'text': 'Algo salió mal, inténtelo nuevamente.',
+                            'type': 'error'
+                        })
+                    }
+                });
 
-    $(document).ready(function () {
-  //called when key is pressed in textbox
-    $("#cedula").keypress(function (e) {   
-        if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
-            //display error message
-            $("#errmsg").html("Solo números").show().fadeOut("slow");
-                return false;
+            } else {
+
+            }
+
+        });
+
+        $("#submit").hide();
+        $('#cedula').bind('input propertychange', function() {
+            var d = new Date();
+            var n = d.toTimeString();
+            $("#submit").hide();
+            $('#usuario').val("");
+            var cedula = $('#cedula').val();
+            if(cedula.length == 10) {
+                var check = true;
+                $.ajax({
+                    type: 'post',
+                    url: 'srv.php',
+                    data: {cedula: cedula, check: true},
+                    success: function(data){
+                        if(data.length != 2){
+                            $('#usuario').val(data);
+                            $("#submit").show();
+                        } else {
+                            $('#usuario').val("Funcionario no existe");
+                            $('#hora').val("");
+                            $("#submit").hide();
+                        }
+                    },
+                    error: function(data){
+                    }
+                });
+
+            }
+        });
+        $(document).ready(function() {
+            actualizarReloj();
+            setInterval(actualizarReloj, 1000);
+        });
+        function actualizarReloj() {
+            var date = new Date(Date.now() - 7000);
+            $('.digital-clock').css({'color': '#fff', 'text-shadow': '0 0 6px #ff0'});
+            function addZero(x) {
+                if (x < 10) {
+                    return x = '0' + x;
+                } else {
+                    return x;
+                }
+            }
+            var h = addZero(date.getHours());
+            var m = addZero(date.getMinutes());
+            var s = addZero(date.getSeconds());
+            $('.digital-clock').text(h + ':' + m + ':' + s)
         }
+
+        // No permitir el Enter
+        $(document).on("keydown", "form", function(event) { 
+            return event.key != "Enter";
+        });
+
+        $(document).ready(function () {
+            // Llamado cuando se presiona una tecla en el cuadro de texto
+            $("#cedula").keypress(function (e) {   
+                if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+                    // Mostrar mensaje de error
+                    $("#errmsg").html("Solo números").show().fadeOut("slow");
+                    return false;
+                }
+            });
+        });
+
+        $(document).ready(function(){
+            // Deshabilitar cortar, copiar y pegar en el campo de cédula
+            $('#cedula').on("cut copy paste", function(e) {
+                e.preventDefault();
+            });
         });
     });
-	$(document).ready(function(){
-   $('#cedula').on("cut copy paste",function(e) {
-      e.preventDefault();
-    });
-  });
-</script>
+</script><!--Fin cambios-->
 </body>
 </html>
