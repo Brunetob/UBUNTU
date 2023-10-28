@@ -13,5 +13,5 @@ if (!$dbconn) {
     die("Error al conectar a la base de datos: " . pg_last_error());
 } 
 
-echo "Conexión exitosa";
+//echo "Conexión exitosa";
 ?>
