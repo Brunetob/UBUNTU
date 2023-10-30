@@ -6,7 +6,7 @@ require_once('conf.php');
 <head>
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
-    <title>Marcación GPAxd</title>
+    <title>Marcación GPA</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
     <style>
@@ -25,7 +25,7 @@ require_once('conf.php');
         }
         body {
             min-height: 100vh;
-            background: linear-gradient(to bottom, #000858, #004683)
+            background: linear-gradient(to bottom, #E6DDDB, #004683)
         }
 
         .wrapper {
@@ -243,50 +243,47 @@ require_once('conf.php');
 <!--Inicio cambios-->
 <script type="text/javascript">
     $(function(){
-        $('#submit').click(function(e){
-            var valid = this.form.checkValidity();
-            if(valid){
-                var cedula = $('#cedula').val();
-                var marcar = true;
-                e.preventDefault();
-                $.ajax({
-                    type: 'POST',
-                    url: 'srv.php',
-                    data: {cedula: cedula, marcar: true},
-                    success: function(data){
-                        if (data.includes("ERROR")) {
-                            Swal.fire({
-                                'title': 'Algo salió mal.',
-                                'text': 'Algo salió mal, inténtelo nuevamente.',
-                                'type': 'error'
-                            });
-                        } else {
-                            Swal.fire({
-                                'title': 'Marcación Exitosa',
-                                'html': data,
-                                'type': 'success'
-                            }).then((data) => {
-                                $('#cedula').val("");
-                                $('#usuario').val("");
-                                $("#submit").hide();
-                            });
-                        }
-                    },
-                    error: function(data){
+        $('#marcacionform').submit(function(e) {
+            e.preventDefault();
+            var cedula = $('#cedula').val();
+            $.ajax({
+                type: 'POST',
+                url: 'srv.php',
+                data: { cedula: cedula, marcar: true },
+                success: function(data) {
+                    if (data.includes("ERROR")) {
                         Swal.fire({
                             'title': 'Algo salió mal.',
                             'text': 'Algo salió mal, inténtelo nuevamente.',
                             'type': 'error'
-                        })
+                        });
+                    } else if (data.includes("Empleado no encontrado")) {
+                        Swal.fire({
+                            'title': 'Empleado no encontrado',
+                            'text': 'El empleado no existe en la base de datos.',
+                            'type': 'error'
+                        });
+                    } else {
+                        Swal.fire({
+                            'title': 'Marcación Exitosa',
+                            'html': data,
+                            'type': 'success'
+                        }).then((result) => {
+                            $('#cedula').val("");
+                            $('#usuario').val("");
+                        });
                     }
-                });
-
-            } else {
-
-            }
-
+                },
+                error: function(data) {
+                    Swal.fire({
+                        'title': 'Algo salió mal.',
+                        'text': 'Algo salió mal, inténtelo nuevamente.',
+                        'type': 'error'
+                    });
+                }
+            });
         });
-
+        
         $("#submit").hide();
         $('#cedula').bind('input propertychange', function() {
             var d = new Date();
