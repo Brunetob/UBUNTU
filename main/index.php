@@ -261,9 +261,13 @@ require_once('conf.php');
                                 'type': 'error'
                             });
                         } else {
+                            //Modificaciones
+                            var responseData = JSON.parse(data);
+                            var nombre = responseData.nombre;
+                            //Fin modificaciones
                             Swal.fire({
                                 'title': 'Marcación Exitosa',
-                                'html': data,
+                                'html': nombre,//Se usa directamente el nombre 
                                 'type': 'success'
                             }).then((data) => {
                                 $('#cedula').val("");
