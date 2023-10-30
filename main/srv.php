@@ -12,13 +12,14 @@ require_once('conf.php');
                 if ($result) {
                     while ($row = pg_fetch_assoc($result)) {
                         $nombre = $row['name_related'];
-                        print(json_encode($nombre));
+                        //print(json_encode($nombre));
+                        echo $nombre;
                     }
                 } else {
-                    print("ERROR");
+                    echo "ERROR";
                 }
             } catch (Exception $e) {
-                print("ERROR");
+                echo "ERROR";
             }
         }
   
@@ -33,17 +34,20 @@ require_once('conf.php');
                 foreach ($conn->query($sql) as $row) {
                     $nombre = $row['NOMINA_APE'] . " " . $row['NOMINA_NOM'];
                     $id = $row['NOMINA_ID'];
-                    print($nombre);
+                    //print($nombre);
+                    echo $nombre;
                 }
             } catch (Exception $e) {
-               print_r("ERROR");
+               //print_r("ERROR");
+               echo "ERROR";
             }
             
             try {
                 $sql = "INSERT INTO gpa_devicedata (cedula, nombre, fecha, hora, ip, equipo) VALUES ('$san_cedula', '$nombre', CURRENT_DATE, CURRENT_TIME, '$ip', '$equipo')";
                 $conn->query($sql);
             } catch (Exception $e) {
-                print_r("ERROR");
+                //print_r("ERROR");
+                echo "ERROR";
             }
             
             // Resto del código para marcación y consultas...
