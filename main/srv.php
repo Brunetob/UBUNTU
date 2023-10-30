@@ -27,6 +27,7 @@ require_once('conf.php');
             $san_cedula = filter_var($cedula, FILTER_SANITIZE_NUMBER_INT);
             $ip = strval($_SERVER['REMOTE_ADDR']);
             $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR']));
+            
             try {
                 $sql = "SELECT NOMINA_ID, NOMINA_APE, NOMINA_NOM FROM NOMINA WHERE NOMINA_COD= '$san_cedula'";
                 foreach ($conn->query($sql) as $row) {
