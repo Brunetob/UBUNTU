@@ -10,8 +10,8 @@ $connection_string = "host=$host port=$port dbname=$dbname user=$user password=$
 $dbconn = pg_connect($connection_string);
 
 if (!$dbconn) {
-    die("Error al conectar a la base de datos: " . pg_last_error());
-} 
-
-//echo "Conexión exitosa";
+    die("Error al conectar a la base de datos: ".pg_last_error());
+} else{
+    echo "Conexión exitosa";
+}
 ?>
