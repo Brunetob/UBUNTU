@@ -167,7 +167,7 @@ body {
     color: #eee;
     z-index: 100;
     background-color: rgba(255, 255, 255, 0.315);
-    background-color: #1f5588
+    /*background-color: #1f5588*/
 }
 @media(max-width: 460px) {
     .wrapper {

@@ -54,19 +54,18 @@ $(function(){
                 url: 'srv.php',
                 data: {cedula: cedula, check: true},
                 success: function(data){
-                    if(data.length != 2){
-                        $('#usuario').val(data);
-                        $("#submit").show();
-                    } else {
+                    if(data.trim() === "Funcionario no existe"){
                         $('#usuario').val("Funcionario no existe");
                         $('#hora').val("");
                         $("#submit").hide();
+                    } else {
+                        $('#usuario').val(data);
+                        $("#submit").show();
                     }
                 },
                 error: function(data){
                 }
             });
-
         }
     });
     $(document).ready(function() {

@@ -25,7 +25,7 @@ require_once('conf.php');
             <div class="form-group d-flex align-items-center">
                 <div class="icon"><span class="far fa-id-card"></span></div> <input autocomplete="off" type="text"
                     class="form-control" placeholder="Cédula" name="cedula" id="cedula" maxlength="10" required >
-                    <span id="errmsg"></span> 
+                    <span id="errmsg"></span> <!--Campo de cédula-->
             </div>
             <div class="form-group d-flex align-items-center">
                 <div class="icon"><span class="far fa-user"></span></div> <input autocomplete="off" type="text"
