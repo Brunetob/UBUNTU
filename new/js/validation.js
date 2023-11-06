@@ -15,6 +15,7 @@ $(function() {
 
                 // Función ejecutada si la solicitud se completa con éxito
                 if (data.includes("ERROR")) {
+                    console.log(data);
                     // Mensaje de error si ocurre un problema en el servidor
                     Swal.fire({
                         title: 'Algo salió mal.',
@@ -30,6 +31,7 @@ $(function() {
                     });
                 } else {
                     // Mensaje de marcación exitosa
+                    console.log(data);
                     Swal.fire({
                         title: 'Marcación Exitosa',
                         html: data,
