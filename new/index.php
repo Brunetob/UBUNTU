@@ -12,7 +12,7 @@
     <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
 </head>
 <body>
-    <div class="wrapper">
+<div class="wrapper">
         <form action="index.php" method="post" id="marcacionform">
             <div class="container-fluid">
                 <div>
