@@ -6,58 +6,54 @@ $(function() {
         // Obtiene el valor del campo 'cedula'
         let cedula = $('#cedula').val();
 
-        // Realiza una solicitud AJAX
-        $.ajax({
-            type: 'POST', // Tipo de solicitud
-            url: '../srv.php', // URL a la que se enviará la solicitud
-            data: { cedula: cedula, marcar: true },  // Datos enviados en la solicitud
-            success: function(data) {
-
-                // Función ejecutada si la solicitud se completa con éxito
-                if (data.includes("ERROR")) {
-                    // Mensaje de error si ocurre un problema en el servidor
-                    showErrorAlert();
-                } else if (data.includes("Empleado no encontrado")) {
-                    // Mensaje si el empleado no existe
-                    $('#usuario').val("Funcionario no existe");
-                } else {
-                    // Mensaje de marcación exitosa
-                    showSuccessAlert(data);
-                    clearFormFields();
-                }
-            },
-            error: function() {
-                // Mensaje si hay un error en la solicitud AJAX
-                showErrorAlert();
+        // Realiza una solicitud Fetch
+        fetch('srv.php', {
+            method: 'POST', // Tipo de solicitud
+            body: JSON.stringify({ cedula: cedula, marcar: true }), // Datos enviados en la solicitud
+            headers: {
+                'Content-Type': 'application/json'
             }
+        })
+        .then(response => response.text())
+        .then(data => {
+            if (data.includes('ERROR')) {
+                showErrorAlert();
+            } else if (data.includes('Empleado no encontrado')) {
+                $('#usuario').val('Funcionario no existe');
+            } else {
+                showSuccessAlert(data);
+                clearFormFields();
+            }
+        })
+        .catch(() => {
+            showErrorAlert();
         });
     });
 
     $('#cedula').on('input', function() {
-         // Cada vez que el campo 'cedula' cambia
+        // Cada vez que el campo 'cedula' cambia
         let cedula = $('#cedula').val();
         if (cedula.length === 10) {
-            // Si la longitud de la cedula es igual a 10, realiza una solicitud AJAX
-            $.ajax({
-                type: 'POST', // Tipo de solicitud
-                url: '../srv.php', // URL a la que se enviará la solicitud
-                data: { cedula: cedula, check: true }, // Datos enviados en la solicitud
-                success: function(data) {
-                    // Función ejecutada si la solicitud se completa con éxito
-
-                    if (data.trim() === "Funcionario no existe") {
-                        // Si el resultado indica que el funcionario no existe, se muestra en el campo 'usuario'
-                        $('#usuario').val("Funcionario no existe");
-                    } else {
-                        // Muestra la respuesta en el campo 'usuario'
-                        $('#usuario').val(data);
-                    }
-                },
-                error: function() {
-                    console.log("Error en la solicitud ajax");
-                    // Función ejecutada si hay un error en la solicitud AJAX
-                    // Aquí se podría manejar el error
+            // Si la longitud de la cedula es igual a 10, realiza una solicitud Fetch
+            fetch('srv.php', {
+                method: 'POST', // Tipo de solicitud
+                body: JSON.stringify({ cedula: cedula, check: true }), // Datos enviados en la solicitud
+                headers: {
+                    'Content-Type': 'application/json'
                 }
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data.trim() === 'Funcionario no existe') {
+                    $('#usuario').val('Funcionario no existe');
+                } else {
+                    $('#usuario').val(data);
+                }
+            })
+            .catch(() => {
+                console.log('Error en la solicitud fetch');
+                // Función ejecutada si hay un error en la solicitud Fetch
+                // Aquí se podría manejar el error
             });
         }
     });
