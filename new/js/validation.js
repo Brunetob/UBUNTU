@@ -17,38 +17,19 @@ $(function() {
                 if (data.includes("ERROR")) {
                     console.log(data);
                     // Mensaje de error si ocurre un problema en el servidor
-                    Swal.fire({
-                        title: 'Algo salió mal.',
-                        text: 'Algo salió mal, inténtelo nuevamente.',
-                        type: 'error'
-                    });
+                    showErrorAlert();
                 } else if (data.includes("Empleado no encontrado")) {
                     // Mensaje si el empleado no existe
-                    Swal.fire({
-                        title: 'Empleado no encontrado',
-                        text: 'El empleado no existe en la base de datos.',
-                        type: 'error'
-                    });
+                    $('#usuario').val("Funcionario no existe");
                 } else {
                     // Mensaje de marcación exitosa
-                    console.log(data);
-                    Swal.fire({
-                        title: 'Marcación Exitosa',
-                        html: data,
-                        type: 'success'
-                    }).then((result) => {
-                        $('#cedula').val(""); // Borra el valor de 'cedula'
-                        $('#usuario').val(""); // Borra el valor de 'usuario'
-                    });
+                    showSuccessAlert(data);
+                    clearFormFields();
                 }
             },
             error: function() {
                 // Mensaje si hay un error en la solicitud AJAX
-                Swal.fire({
-                    title: 'Algo salió mal.',
-                    text: 'Algo salió mal, inténtelo nuevamente.',
-                    type: 'error'
-                });
+                showErrorAlert();
             }
         });
     });
