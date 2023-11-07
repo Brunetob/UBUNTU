@@ -2,9 +2,15 @@
 require_once('conf.php'); // Incluye el archivo de configuración para la base de datos
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
+    // Recibir datos del cuerpo de la solicitud Fetch
+    $data = json_decode(file_get_contents('php://input'), true);
+
     if (isset($_POST['cedula']) && isset($_POST['check'])) {
-        $cedula = $_POST['cedula'];// Obtiene la cédula de la solicitud POST
-        $san_cedula = filter_var($cedula, FILTER_SANITIZE_NUMBER_INT);  // Limpia y filtra la cédula
+        //$cedula = $_POST['cedula'];// Obtiene la cédula de la solicitud POST
+        $san_cedula = filter_var($data['cedula'], FILTER_SANITIZE_NUMBER_INT);  // Limpia y filtra la cédula
+
+        // Lógica para verificar si el empleado existe
         $sql = "SELECT name_related FROM hr_employee WHERE identification_id = :san_cedula"; // Consulta SQL
 
         try {
@@ -26,9 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             echo "ERROR: " . $e->getMessage(); // Muestra el mensaje de error
             exit();
         }
-    }
-
-    if (isset($_POST['cedula']) && isset($_POST['marcar'])) {
+    }else if (isset($_POST['cedula']) && isset($_POST['marcar'])) {
         $cedula = $_POST['cedula']; // Obtiene la cédula de la solicitud POST
         $san_cedula = filter_var($cedula, FILTER_SANITIZE_NUMBER_INT); // Limpia y filtra la cédula
         $sql = "SELECT name_related FROM hr_employee WHERE identification_id = :san_cedula"; // Consulta SQL
