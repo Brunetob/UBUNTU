@@ -7,7 +7,7 @@ $(function() {
         let cedula = $('#cedula').val();
 
         // Realiza una solicitud Fetch
-        fetch('srv.php', {
+        fetch('../srv.php', {
             method: 'POST', // Tipo de solicitud
             body: JSON.stringify({ cedula: cedula, marcar: true }), // Datos enviados en la solicitud
             headers: {
@@ -35,7 +35,7 @@ $(function() {
         let cedula = $('#cedula').val();
         if (cedula.length === 10) {
             // Si la longitud de la cedula es igual a 10, realiza una solicitud Fetch
-            fetch('srv.php', {
+            fetch('../srv.php', {
                 method: 'POST', // Tipo de solicitud
                 body: JSON.stringify({ cedula: cedula, check: true }), // Datos enviados en la solicitud
                 headers: {
