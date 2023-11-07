@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $nombre = $row['name_related']; // Obtiene el nombre del empleado
                 $ip = strval($_SERVER['REMOTE_ADDR']); // Obtiene la dirección IP del cliente
                 $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR'])); // Obtiene el nombre del equipo
-                $fecha = date("Y-m-d"); // Obtiene la fecha actual
+                $fecha = date("Y/m/d"); // Obtiene la fecha actual
                 $hora = date("H:i:s"); // Obtiene la hora actual
                 $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
                 $hora_varchar = date("H:i"); // Obtiene la hora actual
