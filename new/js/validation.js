@@ -63,6 +63,33 @@ $(function() {
         }
     });
 
+    // Función para mostrar un mensaje de error con SweetAlert
+    function showErrorAlert() {
+        Swal.fire({
+            title: 'Algo salió mal.',
+            text: 'Algo salió mal, inténtelo nuevamente.',
+            type: 'error'
+        });
+    }
+
+    // Función para mostrar un mensaje de marcación exitosa con SweetAlert
+    function showSuccessAlert(data) {
+        console.log(data);
+        Swal.fire({
+            title: 'Marcación Exitosa',
+            html: data,
+            type: 'success'
+        }).then(() => {
+            clearFormFields();
+        });
+    }
+
+    // Función para borrar los valores del formulario
+    function clearFormFields() {
+        $('#cedula').val("");
+        $('#usuario').val("");
+    }
+
     $(document).ready(function() {
         actualizarReloj();
         setInterval(actualizarReloj, 1000);
