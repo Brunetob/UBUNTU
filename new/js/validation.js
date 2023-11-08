@@ -10,7 +10,7 @@ $(function() {
         $.post('srv.php', { cedula: cedula, marcar: true }, function(data) {
             if (data.includes('ERROR')) {
                 showErrorAlert();
-            } else if (data.includes('Empleado no encontrado')) {
+            } else if (data.includes('EMPLEADO_NO_ENCONTRADO')) {
                 $('#usuario').val('Funcionario no existe');
             } else {
                 showSuccessAlert(data);
@@ -27,7 +27,7 @@ $(function() {
         if (cedula.length === 10) {
             // Si la longitud de la cedula es igual a 10, realiza una solicitud POST a srv.php
             $.post('srv.php', { cedula: cedula, check: true }, function(data) {
-                if (data.trim() === 'Funcionario no existe') {
+                if (data.trim() === 'EMPLEADO_NO_ENCONTRADO') {
                     $('#usuario').val('Funcionario no existe');
                 } else {
                     $('#usuario').val(data);
