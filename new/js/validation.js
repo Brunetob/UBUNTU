@@ -24,14 +24,13 @@ $(function() {
     $('#cedula').on('input', function() {
         // Cada vez que el campo 'cedula' cambia
         let cedula = $('#cedula').val();
-        
         if (cedula.length === 0) {
             $('#usuario').val(''); // Limpiar el campo de usuario si la cédula se borra
-        }else if (cedula.length === 10) {
             // Si la longitud de la cedula es igual a 10, realiza una solicitud POST a srv.php
+        } else if (cedula.length === 10) {
             $.post('srv.php', { cedula: cedula, check: true }, function(data) {
                 if (data.trim() === 'EMPLEADO_NO_ENCONTRADO') {
-                    $('#usuario').val('Funcionario no existe');
+                    $('#usuario').val('Funcionario no existe'); // Mostrar mensaje cuando el empleado no existe
                 } else {
                     $('#usuario').val(data);
                 }
