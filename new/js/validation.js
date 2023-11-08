@@ -41,10 +41,10 @@ $(function() {
     });
 
     // Función para mostrar un mensaje de error con SweetAlert
-    function showErrorAlert() {
+    function showErrorAlert(errorMsg) {
         Swal.fire({
             title: 'Algo salió mal.',
-            text: 'Algo salió mal, inténtelo nuevamente.',
+            text: 'Error: ' + errorMsg,
             type: 'error'
         });
     }
