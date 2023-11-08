@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $ip = strval($_SERVER['REMOTE_ADDR']); // Obtiene la dirección IP del cliente
                 $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR'])); // Obtiene el nombre del equipo
                 $fecha = date("Y/m/d"); // Obtiene la fecha actual
-                $hora = date("H:i:s"); // Obtiene la hora actual
+                $hora = date("H.i.s"); // Obtiene la hora actual
                 $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
                 $hora_varchar = date("H:i"); // Obtiene la hora actual
 
@@ -61,11 +61,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->bindParam(':hora_varchar', $hora_varchar);
 
                 if ($stmt->execute()) { // Ejecuta la consulta de inserción
-                    echo "MARCACION_EXITOSA"; // Indica que la marcación fue exitosa
+                    echo "MARCACION_EXITOSA" . $e->getMessage() . ". SQL: " . $sql_insert; // Indica que la marcación fue exitosa
                     exit();
                 } else {
                     http_response_code(500); // Responde con un código de error 500 si hay un problema en la inserción
-                    echo "ERROR_EN_INSERCION" . $sql_insert;
+                    echo "ERROR_EN_INSERCION: " . $e->getMessage() . ". SQL: " . $sql_insert;
                     exit();
                 }
             } else {
