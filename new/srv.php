@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit();
                 } else {
                     http_response_code(500); // Responde con un código de error 500 si hay un problema en la inserción
-                    echo "ERROR_EN_INSERCION";
+                    echo "ERROR_EN_INSERCION" . $sql_insert;
                     exit();
                 }
             } else {
