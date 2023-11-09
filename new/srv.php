@@ -48,10 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $ip = strval($_SERVER['REMOTE_ADDR']); // Obtiene la dirección IP del cliente
                 $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR'])); // Obtiene el nombre del equipo
                 $fecha = date("Y/m/d"); // Obtiene la fecha actual
-                $hora = date("H.i.s"); // Obtiene la hora actual
+                $hora_varchar = $_POST['hora']; // Obtiene la hora en formato HH:MM:SS
+        
+                // Convertir hora a float8
+                $splitTime = explode(":", $hora_varchar); // Divide la hora por ":"
+                $hora = $splitTime[0] + $splitTime[1] / 60 + $splitTime[2] / 3600; // Calcula el valor numérico decimal para float8
+        
                 $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
-                $hora_varchar = date("H:i:s"); // Obtiene la hora actual
-
+        
                 $sql_insert = "INSERT INTO gpa_devicedata (usuario_cedula, usuario_name, fecha, hora, ip, fecha_hora, hora_varchar) 
                                VALUES (:san_cedula, :nombre, :fecha, :hora, :ip, :fecha_hora, :hora_varchar)"; // Consulta SQL para la inserción
 

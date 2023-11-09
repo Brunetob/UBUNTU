@@ -33,12 +33,33 @@ $(function() {
                     $('#usuario').val('Funcionario no existe'); // Mostrar mensaje cuando el empleado no existe
                 } else {
                     $('#usuario').val(data);
+                    markAttendance(cedula); // Llama a una función para registrar la asistencia con la hora actual
                 }
             }).fail(function() {
                 console.log('Error en la solicitud');
             });
         }
     });
+
+    //Función para obtener la hora actual
+    function markAttendance(cedula) {
+        // Obtiene la hora actual en formato HH:MM:SS
+        let now = new Date();
+        let formattedTime = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+      
+        $.post('srv.php', { cedula: cedula, hora: formattedTime, marcar: true }, function(data) {
+            if (data.trim() === 'ERROR') {
+                showErrorAlert();
+            } else if (data.trim() === 'EMPLEADO_NO_ENCONTRADO') {
+                $('#usuario').val('Funcionario no existe');
+            } else {
+                showSuccessAlert(data);
+                clearFormFields();
+            }
+        }).fail(function() {
+            showErrorAlert();
+        });
+    }
 
     // Función para mostrar un mensaje de error con SweetAlert
     function showErrorAlert(errorMsg) {
