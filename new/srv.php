@@ -1,4 +1,8 @@
 <?php
+
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 require_once('conf.php'); // Incluye el archivo de configuración para la base de datos
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -46,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $fecha = date("Y/m/d"); // Obtiene la fecha actual
                 $hora = date("H.i.s"); // Obtiene la hora actual
                 $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
-                $hora_varchar = date("H:i"); // Obtiene la hora actual
+                $hora_varchar = date("H:i:s"); // Obtiene la hora actual
 
                 $sql_insert = "INSERT INTO gpa_devicedata (usuario_cedula, usuario_name, fecha, hora, ip, fecha_hora, hora_varchar) 
                                VALUES (:san_cedula, :nombre, :fecha, :hora, :ip, :fecha_hora, :hora_varchar)"; // Consulta SQL para la inserción
@@ -65,7 +69,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit();
                 } else {
                     http_response_code(500); // Responde con un código de error 500 si hay un problema en la inserción
-                    echo "ERROR_EN_INSERCION: ";
                     echo "ERROR_EN_INSERCION: Ha ocurrido un error al insertar en la base de datos. Consulta: " . $sql_insert;
                     exit();
                 }
