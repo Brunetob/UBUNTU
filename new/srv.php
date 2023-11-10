@@ -69,7 +69,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $stmt->bindParam(':hora_varchar', $hora_varchar);
 
                 if ($stmt->execute()) { // Ejecuta la consulta de inserción
-                    echo "MARCACION_EXITOSA"; // Indica que la marcación fue exitosa
+
+                    // Consulta SQL para obtener todas las marcaciones del día presente
+                    $sql_marcaciones = "SELECT hora_varchar FROM gpa_devicedata WHERE usuario_cedula = :san_cedula AND fecha = :fecha";
+                    $stmt_marcaciones = $dbconn->prepare($sql_marcaciones);
+                    $stmt_marcaciones->bindParam(':san_cedula', $san_cedula);
+                    $stmt_marcaciones->bindParam(':fecha', $fecha);
+                    $stmt_marcaciones->execute();
+                    $marcaciones = $stmt_marcaciones->fetchAll(PDO::FETCH_ASSOC);
+
+                    // Formatear y devolver las marcaciones
+                    $mensaje_exitoso = "MARCACION_EXITOSA";
+                    if ($marcaciones) {
+                        $mensaje_exitoso .= "<br>Marcaciones del día: ";
+                        foreach ($marcaciones as $marcacion) {
+                            $mensaje_exitoso .= $marcacion['hora_varchar'] . ", ";
+                        }
+                        $mensaje_exitoso = rtrim($mensaje_exitoso, ", "); // Elimina la última coma
+                    }// Fin consultas del día presnete
+                    
+                    echo $mensaje_exitoso; // Indica que la marcación fue exitosa
                     exit();
                 } else {
                     http_response_code(500); // Responde con un código de error 500 si hay un problema en la inserción
