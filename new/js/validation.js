@@ -1,4 +1,4 @@
-$(function() {    
+$(function() {
     // Cuando el formulario con id 'marcacionform' es enviado
     $('#marcacionform').submit(function(e) {
         e.preventDefault(); // Evita que el formulario se envíe de manera convencional
@@ -30,10 +30,10 @@ $(function() {
         } else if (cedula.length === 10) {
             $.post('srv.php', { cedula: cedula, check: true }, function(data) {
                 if (data.trim() === 'EMPLEADO_NO_ENCONTRADO') {
-                    $('#usuario').val('Funcionario no existe'); // Mostrar mensaje cuando el empleado no existe
+                    $('#usuario').val('Funcionario no existexd'); // Mostrar mensaje cuando el empleado no existe
                 } else {
                     $('#usuario').val(data);
-                    //markAttendance(cedula); // Llama a una función para registrar la asistencia con la hora actual
+                    markAttendance(cedula); // Llama a una función para registrar la asistencia con la hora actual
                 }
             }).fail(function() {
                 console.log('Error en la solicitud.  El funcionario no se encuentra registrado en la base de datos');
