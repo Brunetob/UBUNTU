@@ -1,29 +1,24 @@
-$(function() {
-    let cedulaEntered = false;//agregado
+$(function() {    
     // Cuando el formulario con id 'marcacionform' es enviado
     $('#marcacionform').submit(function(e) {
         e.preventDefault(); // Evita que el formulario se envíe de manera convencional
 
-        if (cedulaEntered) {//agregado condición if
-            // Obtiene el valor del campo 'cedula'
-            let cedula = $('#cedula').val();
+        // Obtiene el valor del campo 'cedula'
+        let cedula = $('#cedula').val();
 
-            // Realiza una solicitud POST a srv.php con los datos del formulario
-            $.post('srv.php', { cedula: cedula, marcar: true }, function(data) {
-                if (data.includes('ERROR')) {
-                    showErrorAlert();
-                } else if (data.includes('EMPLEADO_NO_ENCONTRADO')) {
-                    $('#usuario').val('Funcionario no existe');
-                } else {
-                    showSuccessAlert(data);
-                    clearFormFields();
-                }
-            }).fail(function() {
+        // Realiza una solicitud POST a srv.php con los datos del formulario
+        $.post('srv.php', { cedula: cedula, marcar: true }, function(data) {
+            if (data.includes('ERROR')) {
                 showErrorAlert();
-            });
-        } else {
-            $('#usuario').val('Primero ingrese la cédula');//agregado
-        }
+            } else if (data.includes('EMPLEADO_NO_ENCONTRADO')) {
+                $('#usuario').val('Funcionario no existe');
+            } else {
+                showSuccessAlert(data);
+                clearFormFields();
+            }
+        }).fail(function() {
+            showErrorAlert();
+        });
     });
 
     $('#cedula').on('input', function() {
@@ -35,17 +30,14 @@ $(function() {
         } else if (cedula.length === 10) {
             $.post('srv.php', { cedula: cedula, check: true }, function(data) {
                 if (data.trim() === 'EMPLEADO_NO_ENCONTRADO') {
-                    $('#usuario').val('Funcionario no existexd'); // Mostrar mensaje cuando el empleado no existe
-                    cedulaEntered = false;//agregado
+                    $('#usuario').val('Funcionario no existe'); // Mostrar mensaje cuando el empleado no existe
                 } else {
                     $('#usuario').val(data);
                     //markAttendance(cedula); // Llama a una función para registrar la asistencia con la hora actual
-                    cedulaEntered = true;//agregado
                 }
             }).fail(function() {
                 console.log('Error en la solicitud.  El funcionario no se encuentra registrado en la base de datos');
                 $('#usuario').val('Funcionario no existe'); // Mostrar mensaje cuando el empleado no existe
-                cedulaEntered = false;//agregado
             });
         }
     });
