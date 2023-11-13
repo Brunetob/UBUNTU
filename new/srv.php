@@ -49,13 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR'])); // Obtiene el nombre del equipo
                 $fecha = date("Y/m/d"); // Obtiene la fecha actual
                 $hora_varchar = $_POST['hora']; // Obtiene la hora en formato HH:MM:SS
-        
+
                 // Convertir hora a float8
                 $splitTime = explode(":", $hora_varchar); // Divide la hora por ":"
                 $hora = $splitTime[0] + $splitTime[1] / 60 + $splitTime[2] / 3600; // Calcula el valor numérico decimal para float8
-        
+
                 $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
-        
+
                 $sql_insert = "INSERT INTO gpa_devicedata (usuario_cedula, usuario_name, fecha, hora, ip, fecha_hora, hora_varchar) 
                                VALUES (:san_cedula, :nombre, :fecha, :hora, :ip, :fecha_hora, :hora_varchar)"; // Consulta SQL para la inserción
 
@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($stmt->execute()) { // Ejecuta la consulta de inserción
 
-                    // Consulta SQL para obtener todas las marcaciones del día presente
+                    // Consulta SQL para obtener todas las marcaciones del día presente desde la tabla gpa_detalle_marcacion
                     $sql_marcaciones = "SELECT hora_marcacion FROM gpa_detalle_marcacion WHERE name = :san_cedula AND fecha_creacion = :fecha";
                     $stmt_marcaciones = $dbconn->prepare($sql_marcaciones);
                     $stmt_marcaciones->bindParam(':san_cedula', $san_cedula);
@@ -83,11 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if ($marcaciones) {
                         $mensaje_exitoso .= "<br>Marcaciones del día: ";
                         foreach ($marcaciones as $marcacion) {
-                            $mensaje_exitoso .= $marcacion['hora_varchar'] . ", ";
+                            $mensaje_exitoso .= $marcacion['hora_marcacion'] . ", ";
                         }
                         $mensaje_exitoso = rtrim($mensaje_exitoso, ", "); // Elimina la última coma
-                    }// Fin consultas del día presnete
-                    
+                    }// Fin consultas del día presente
+
                     echo $mensaje_exitoso; // Indica que la marcación fue exitosa
                     exit();
                 } else {
