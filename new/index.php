@@ -50,14 +50,5 @@
     <script src="js/validation.js" type="text/javascript">
         //código movido a la carpeta js--> validation.js
     </script><!--Fin cambios-->
-    <!--<form id="marcacionform"> <!-- Formulario de marcación 
-        <input type="text" id="cedula" placeholder="Cédula" maxlength="10"> <!-- Campo para ingresar la cédula 
-        <input type="text" id="usuario" placeholder="Nombre" readonly> <!-- Campo para mostrar el nombre, readonly para que no sea editable 
-        <button id="submit" type="submit">Realizar Marcación</button><!-- Botón para realizar la marcación 
-    </form>
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!-- Carga de jQuery 
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script> <!-- Carga de SweetAlert2, librería para mostrar alertas amigables
-    <script src="js/validation.js"></script> <!-- Carga de un archivo JavaScript para la validación -->
 </body>
 </html>

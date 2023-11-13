@@ -71,7 +71,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($stmt->execute()) { // Ejecuta la consulta de inserción
 
                     // Consulta SQL para obtener todas las marcaciones del día presente
-                    $sql_marcaciones = "SELECT hora_varchar FROM gpa_devicedata WHERE usuario_cedula = :san_cedula AND fecha = :fecha";
+                    $sql_marcaciones = "SELECT hora_marcacion FROM gpa_detalle_marcacion WHERE name = :san_cedula AND fecha_creacion = :fecha";
                     $stmt_marcaciones = $dbconn->prepare($sql_marcaciones);
                     $stmt_marcaciones->bindParam(':san_cedula', $san_cedula);
                     $stmt_marcaciones->bindParam(':fecha', $fecha);
