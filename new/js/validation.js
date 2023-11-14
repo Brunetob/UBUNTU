@@ -46,7 +46,8 @@ $(function() {
     function markAttendance(cedula) {
         // Obtiene la hora actual en formato HH:MM:SS
         let now = new Date();
-        let formattedTime = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+        //let formattedTime = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+        let formattedTime = now.toTimeString().split(' ')[0]; // Obtiene la hora en formato HH:MM:SS
       
         $.post('srv.php', { cedula: cedula, hora: formattedTime, marcar: true }, function(data) {
             if (data.trim() === 'ERROR') {
