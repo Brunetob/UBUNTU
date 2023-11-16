@@ -186,31 +186,6 @@ body {
     }
 }
 
-/* Estilos Responsivos */
-@media screen and (max-width: 768px) {
-    .wrapper {
-        max-width: 100%;
-        margin: 15px;
-        padding: 20px;
-    }
-
-    .wrapper .connect::after {
-        left: 38%;
-    }
-}
-
-@media screen and (max-width: 576px) {
-    .wrapper .connect::after {
-        left: 32%;
-    }
-}
-
-/* Estilos para la Imagen del Logo */
-.logo {
-    max-width: 100%; /* Haz que la imagen del logo sea responsive */
-    height: auto;
-}/**/
-
 #errmsg{
     color: white;
 }

@@ -48,16 +48,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $ip = strval($_SERVER['REMOTE_ADDR']); // Obtiene la dirección IP del cliente
                 $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR'])); // Obtiene el nombre del equipo
                 $fecha = date("Y/m/d"); // Obtiene la fecha actual
-                //$hora_varchar = $_POST['hora']; // Obtiene la hora en formato HH:MM:SS
-                $hora_varchar = date("H:i:s", strtotime($_POST['hora'])); // Convierte la hora a formato HH:MM:SS
-                
+                $hora_varchar = $_POST['hora']; // Obtiene la hora en formato HH:MM:SS
+        
                 // Convertir hora a float8
                 $splitTime = explode(":", $hora_varchar); // Divide la hora por ":"
-                //$hora = $splitTime[0] + $splitTime[1] / 60 + $splitTime[2] / 3600; // Calcula el valor numérico decimal para float8
-                $hora = sprintf("%02d:%02d:%02d", $splitTime[0], $splitTime[1], $splitTime[2]); // Formatea la hora con dos dígitos para horas, minutos y segundos
-
+                $hora = $splitTime[0] + $splitTime[1] / 60 + $splitTime[2] / 3600; // Calcula el valor numérico decimal para float8
+        
                 $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
-
+        
                 $sql_insert = "INSERT INTO gpa_devicedata (usuario_cedula, usuario_name, fecha, hora, ip, fecha_hora, hora_varchar) 
                                VALUES (:san_cedula, :nombre, :fecha, :hora, :ip, :fecha_hora, :hora_varchar)"; // Consulta SQL para la inserción
 
@@ -72,8 +70,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                 if ($stmt->execute()) { // Ejecuta la consulta de inserción
 
-                    // Consulta SQL para obtener todas las marcaciones del día presente desde la tabla gpa_detalle_marcacion
-                    $sql_marcaciones = "SELECT hora_marcacion FROM gpa_detalle_marcacion WHERE name = :san_cedula AND fecha_creacion = :fecha";
+                    // Consulta SQL para obtener todas las marcaciones del día presente
+                    $sql_marcaciones = "SELECT hora_varchar FROM gpa_devicedata WHERE usuario_cedula = :san_cedula AND fecha = :fecha";
                     $stmt_marcaciones = $dbconn->prepare($sql_marcaciones);
                     $stmt_marcaciones->bindParam(':san_cedula', $san_cedula);
                     $stmt_marcaciones->bindParam(':fecha', $fecha);
@@ -85,11 +83,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if ($marcaciones) {
                         $mensaje_exitoso .= "<br>Marcaciones del día: ";
                         foreach ($marcaciones as $marcacion) {
-                            $mensaje_exitoso .= $marcacion['hora_marcacion'] . ", ";
+                            $mensaje_exitoso .= $marcacion['hora_varchar'] . ", ";
                         }
                         $mensaje_exitoso = rtrim($mensaje_exitoso, ", "); // Elimina la última coma
-                    }// Fin consultas del día presente
-
+                    }// Fin consultas del día presnete
+                    
                     echo $mensaje_exitoso; // Indica que la marcación fue exitosa
                     exit();
                 } else {
