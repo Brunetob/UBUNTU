@@ -109,5 +109,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
     }
+    echo json_encode($mensaje_exitoso); // Devuelve la respuesta como JSON
+    exit();
+
 }
 ?>
