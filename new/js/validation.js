@@ -74,21 +74,14 @@ $(function() {
     // Función para mostrar un mensaje de marcación exitosa con SweetAlert
     function showSuccessAlert(data) {
 
-        try {
-            const responseData = JSON.parse(data);
-            console.log(responseData); // Imprime la respuesta del servidor en la consola
-            Swal.fire({//fuera del try
-                title: 'Marcación Exitosa',
-                //html: data,
-                html: JSON.stringify(responseData), // Puedes ajustar esto según la estructura de responseData
-                type: 'success'
-            }).then(() => {
-                clearFormFields();
-            });//fuera del try
-
-        } catch (error) {
-            console.error('Error al analizar la respuesta JSON:', error);
-        }
+        console.log(data); // Imprime la respuesta del servidor en la consola
+        Swal.fire({//fuera del try
+            title: 'Marcación Exitosa',
+            html: data,
+            type: 'success'
+        }).then(() => {
+            clearFormFields();
+        });//fuera del try
     }
 
     // Función para borrar los valores del formulario

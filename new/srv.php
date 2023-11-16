@@ -71,7 +71,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 if ($stmt->execute()) { // Ejecuta la consulta de inserción
 
                     // Consulta SQL para obtener todas las marcaciones del día presente desde gpa_detalle_marcacion
-                    //$sql_marcaciones = "SELECT hora_marcacion FROM gpa_detalle_marcacion WHERE usuario_cedula = :san_cedula AND fecha_creacion = :fecha";
                     $sql_marcaciones = "SELECT hora_marcacion FROM gpa_detalle_marcacion WHERE name = :name AND fecha_creacion = :fecha_creacion";
                     $stmt_marcaciones = $dbconn->prepare($sql_marcaciones);
                     //$stmt_marcaciones->bindParam(':san_cedula', $san_cedula);
@@ -92,6 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }// Fin consultas del día presnete
                     
                     echo $mensaje_exitoso; // Indica que la marcación fue exitosa
+                    echo json_encode(["data" => $mensaje_exitoso]); // Devuelve la respuesta como JSON
                     exit();
                 } else {
                     http_response_code(500); // Responde con un código de error 500 si hay un problema en la inserción
@@ -109,8 +109,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit();
         }
     }
-    echo json_encode($mensaje_exitoso); // Devuelve la respuesta como JSON
-    exit();
-
 }
 ?>
