@@ -25,7 +25,7 @@
             <div class="form-group d-flex align-items-center">
                 <label for="cedula" class="icon"><span class="far fa-id-card"></span></label>
                 <input autocomplete="off" type="text" class="form-control" placeholder="Cédula" name="cedula" id="cedula" maxlength="10" required>
-                <span id="errmsg"></span> <!-- Campo de cédula -->
+                <span id="errmsg"></span> <!-- Campo de cédula-->
             </div>
             <div class="form-group d-flex align-items-center">
                 <label for="usuario" class="icon"><span class="far fa-user"></span></label>
