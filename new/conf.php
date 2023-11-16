@@ -14,4 +14,5 @@ try {
     echo "Error al conectar a la base de datos: " . $e->getMessage();
     exit();
 }
+//
 ?>

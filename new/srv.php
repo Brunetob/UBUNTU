@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $row = $stmt->fetch(PDO::FETCH_ASSOC); // Obtiene el resultado de la consulta como un array asociativo
 
             if ($row) {
-                $nombre = $row['name_related']; // Obtiene el nombre del empleado
+                $nombre = $row['name_related']; // Obtiene el nombre del empleado 
                 $ip = strval($_SERVER['REMOTE_ADDR']); // Obtiene la dirección IP del cliente
                 $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR'])); // Obtiene el nombre del equipo
                 $fecha = date("Y/m/d"); // Obtiene la fecha actual
