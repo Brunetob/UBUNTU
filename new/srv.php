@@ -85,10 +85,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     if ($marcaciones) {
                         $mensaje_exitoso .= "<br>Marcaciones del día: ";
                         foreach ($marcaciones as $marcacion) {
-                            $mensaje_exitoso .= $marcacion['hora_varchar'] . ", ";
+                            $mensaje_exitoso .= $marcacion['hora_marcacion'] . ", "; // Modificado para usar 'hora_marcacion'
                         }
                         $mensaje_exitoso = rtrim($mensaje_exitoso, ", "); // Elimina la última coma
-                    }// Fin consultas del día presnete
+                    }// Fin consultas del día presente
                     
                     echo $mensaje_exitoso; // Indica que la marcación fue exitosa
                     exit();
