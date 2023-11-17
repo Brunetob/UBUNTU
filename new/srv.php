@@ -91,7 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     }// Fin consultas del día presnete
                     
                     echo $mensaje_exitoso; // Indica que la marcación fue exitosa
-                    echo json_encode(["data" => $mensaje_exitoso]); // Devuelve la respuesta como JSON
                     exit();
                 } else {
                     http_response_code(500); // Responde con un código de error 500 si hay un problema en la inserción
