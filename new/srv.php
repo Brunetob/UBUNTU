@@ -52,8 +52,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
                 // Convertir hora a float8
                 $splitTime = explode(":", $hora_varchar); // Divide la hora por ":"
-                //$hora = $splitTime[0] + $splitTime[1] / 60 + $splitTime[2] / 3600; // Calcula el valor numérico decimal para float8
-                $hora = sprintf('%02d:%02d:%02d', $splitTime[0], $splitTime[1], $splitTime[2]); // Formatea la hora con dos dígitos en cada componente
+                $hora = $splitTime[0] + $splitTime[1] / 60 + $splitTime[2] / 3600; // Calcula el valor numérico decimal para float8
+                //$hora = sprintf('%02d:%02d:%02d', $splitTime[0], $splitTime[1], $splitTime[2]); // Formatea la hora con dos dígitos en cada componente
         
                 $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
         
