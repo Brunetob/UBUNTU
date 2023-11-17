@@ -10,6 +10,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $cedula = $_POST['cedula']; // Obtiene la cédula de la solicitud POST
         $san_cedula = filter_var($cedula, FILTER_SANITIZE_NUMBER_INT); // Limpia y filtra la cédula
 
+        // Lógica para verificar si el empleado está activo
+        $sql_active_check = "SELECT date_end FROM hr_contract hc
+                             WHERE employee_id = (SELECT id FROM hr_employee WHERE identification_id = :san_cedula)
+                             AND id IN (SELECT MAX(id) FROM hr_contract WHERE employee_id = (SELECT id FROM hr_employee WHERE identification_id = :san_cedula))";
+        
         // Lógica para verificar si el empleado existe
         $sql = "SELECT name_related FROM hr_employee WHERE identification_id = :san_cedula"; // Consulta SQL
 
@@ -49,14 +54,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR'])); // Obtiene el nombre del equipo
                 $fecha = date("Y/m/d"); // Obtiene la fecha actual
                 $hora_varchar = $_POST['hora']; // Obtiene la hora en formato HH:MM:SS
-        
+
                 // Convertir hora a float8
                 $splitTime = explode(":", $hora_varchar); // Divide la hora por ":"
                 $hora = $splitTime[0] + $splitTime[1] / 60 + $splitTime[2] / 3600; // Calcula el valor numérico decimal para float8
                 //$hora = sprintf('%02d:%02d:%02d', $splitTime[0], $splitTime[1], $splitTime[2]); // Formatea la hora con dos dígitos en cada componente
-        
+
                 $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
-        
+
                 $sql_insert = "INSERT INTO gpa_devicedata (usuario_cedula, usuario_name, fecha, hora, ip, fecha_hora, hora_varchar) 
                                VALUES (:san_cedula, :nombre, :fecha, :hora, :ip, :fecha_hora, :hora_varchar)"; // Consulta SQL para la inserción
 
@@ -89,8 +94,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             $mensaje_exitoso .= $marcacion['hora_marcacion'] . ", "; // Modificado para usar 'hora_marcacion'
                         }
                         $mensaje_exitoso = rtrim($mensaje_exitoso, ", "); // Elimina la última coma
-                    }// Fin consultas del día presente
-                    
+                    } // Fin consultas del día presente
+
                     echo $mensaje_exitoso; // Indica que la marcación fue exitosa
                     exit();
                 } else {
@@ -110,4 +115,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 }
-?>
