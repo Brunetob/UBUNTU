@@ -57,13 +57,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
         
                 $sql_insert = "INSERT INTO gpa_devicedata (usuario_cedula, usuario_name, fecha, hora, ip, fecha_hora, hora_varchar) 
-                               VALUES (:san_cedula, :nombre, :fecha, :hora_varchar, :ip, :fecha_hora, :hora_varchar)"; // Consulta SQL para la inserción
+                               VALUES (:san_cedula, :nombre, :fecha, :hora, :ip, :fecha_hora, :hora_varchar)"; // Consulta SQL para la inserción
 
                 $stmt = $dbconn->prepare($sql_insert); // Prepara la consulta de inserción
                 $stmt->bindParam(':san_cedula', $san_cedula); // Asocia parámetros con la consulta
                 $stmt->bindParam(':nombre', $nombre);
                 $stmt->bindParam(':fecha', $fecha);
-                $stmt->bindParam(':hora_varchar', $hora_varchar);
+                $stmt->bindParam(':hora', $hora);
                 $stmt->bindParam(':ip', $ip);
                 $stmt->bindParam(':fecha_hora', $fecha_hora);
                 $stmt->bindParam(':hora_varchar', $hora_varchar);
