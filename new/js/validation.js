@@ -9,25 +9,15 @@ $(function() {
         // Realiza una solicitud POST a srv.php con los datos del formulario
         $.post('test.php', { cedula: cedula, marcar: true }, function(data) { // Aquí es srv.php
             if (data.includes('ERROR')) {
-                showErrorAlert("Ha ocurrido un error en el servidor.");
+                showErrorAlert();
+            } else if (data.includes('EMPLEADO_NO_ENCONTRADO')) {
+                $('#usuario').val('Funcionario no existe');
             } else {
-                switch (data.trim()) {
-                    case 'EMPLEADO_NO_ENCONTRADO':
-                        showErrorAlert("Funcionario no encontrado.");
-                        break;
-                    case 'USUARIO_INACTIVO':
-                        showErrorAlert("El usuario está inactivo. No se puede realizar la marcación.");
-                        break;
-                    case 'MARCACION_EXITOSA':
-                        showSuccessAlert("Marcación exitosa");
-                        clearFormFields();
-                        break;
-                    default:
-                        showErrorAlert("Respuesta inesperada del servidor.");
-                }
+                showSuccessAlert(data);
+                clearFormFields();
             }
         }).fail(function() {
-            showErrorAlert("Error en la solicitud al servidor.");
+            showErrorAlert();
         });
     });
 
@@ -74,21 +64,9 @@ $(function() {
 
     // Función para mostrar un mensaje de error con SweetAlert
     function showErrorAlert(errorMsg) {
-        let errorMessage = "Ha ocurrido un error en el servidor.";
-    
-        if (errorMsg.includes("ERROR_EN_CONSULTA")) {
-            errorMessage = "Error en la consulta del servidor: " + errorMsg.split(":")[1];
-        } else if (errorMsg === "EMPLEADO_NO_ENCONTRADO") {
-            errorMessage = "Funcionario no encontrado.";
-        } else if (errorMsg === "USUARIO_INACTIVO") {
-            errorMessage = "El usuario está inactivo. No se puede realizar la marcación.";
-        } else if (errorMsg.includes("ERROR_EN_INSERCION")) {
-            errorMessage = "Error en la inserción en la base de datos: " + errorMsg.split(":")[1];
-        }
-
         Swal.fire({
             title: 'Algo salió mal.',
-            text: errorMessage,
+            text: 'Error: ' + errorMsg,
             type: 'error'
         });
     }

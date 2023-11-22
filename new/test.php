@@ -133,7 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             }
         } catch (PDOException $e) {
             http_response_code(500); // Responde con un código de error 500 en caso de error en la consulta
-            echo "ERROR_EN_CONSULTA: " . $e->getMessage(); // Muestra el mensaje de error
+            echo "ERROR: " . $e->getMessage(); // Muestra el mensaje de error
             exit();
         }
     }
