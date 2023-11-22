@@ -74,9 +74,21 @@ $(function() {
 
     // Función para mostrar un mensaje de error con SweetAlert
     function showErrorAlert(errorMsg) {
+        let errorMessage = "Ha ocurrido un error en el servidor.";
+    
+        if (errorMsg.includes("ERROR_EN_CONSULTA")) {
+            errorMessage = "Error en la consulta del servidor: " + errorMsg.split(":")[1];
+        } else if (errorMsg === "EMPLEADO_NO_ENCONTRADO") {
+            errorMessage = "Funcionario no encontrado.";
+        } else if (errorMsg === "USUARIO_INACTIVO") {
+            errorMessage = "El usuario está inactivo. No se puede realizar la marcación.";
+        } else if (errorMsg.includes("ERROR_EN_INSERCION")) {
+            errorMessage = "Error en la inserción en la base de datos: " + errorMsg.split(":")[1];
+        }
+
         Swal.fire({
             title: 'Algo salió mal.',
-            text: 'Error: ' + errorMsg,
+            text: errorMessage,
             type: 'error'
         });
     }
