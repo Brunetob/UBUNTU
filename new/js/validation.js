@@ -30,7 +30,7 @@ $(function() {
         } else if (cedula.length === 10) {
             $.post('test.php', { cedula: cedula, check: true }, function(data) { // Aquí es srv.php
                 if (data.trim() === 'EMPLEADO_NO_ENCONTRADO') {
-                    $('#usuario').val('Funcionario no existexd'); // Mostrar mensaje cuando el empleado no existe
+                    $('#usuario').val('Funcionario no existe'); // Mostrar mensaje cuando el empleado no existe
                 } else {
                     $('#usuario').val(data);
                     markAttendance(cedula); // Llama a una función para registrar la asistencia con la hora actual
