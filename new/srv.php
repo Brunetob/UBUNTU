@@ -50,57 +50,80 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             if ($row) {
                 $nombre = $row['name_related']; // Obtiene el nombre del empleado 
-                $ip = strval($_SERVER['REMOTE_ADDR']); // Obtiene la dirección IP del cliente
-                $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR'])); // Obtiene el nombre del equipo
-                $fecha = date("Y/m/d"); // Obtiene la fecha actual
-                $hora_varchar = $_POST['hora']; // Obtiene la hora en formato HH:MM:SS
 
-                // Convertir hora a float8
-                $splitTime = explode(":", $hora_varchar); // Divide la hora por ":"
-                $hora = $splitTime[0] + $splitTime[1] / 60 + $splitTime[2] / 3600; // Calcula el valor numérico decimal para float8
-                //$hora = sprintf('%02d:%02d:%02d', $splitTime[0], $splitTime[1], $splitTime[2]); // Formatea la hora con dos dígitos en cada componente
 
-                $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
+                // Validar si el usuario está activo
+                $sql_activo = "SELECT date_end FROM hr_contract
+                WHERE employee_id = (SELECT id FROM hr_employee WHERE identification_id = :san_cedula)
+                AND id IN (SELECT MAX(id) FROM hr_contract WHERE employee_id = (SELECT id FROM hr_employee WHERE identification_id = :san_cedula))";
 
-                $sql_insert = "INSERT INTO gpa_devicedata (usuario_cedula, usuario_name, fecha, hora, ip, fecha_hora, hora_varchar) 
-                               VALUES (:san_cedula, :nombre, :fecha, :hora, :ip, :fecha_hora, :hora_varchar)"; // Consulta SQL para la inserción
+                $stmt_activo = $dbconn->prepare($sql_activo);
+                $stmt_activo->bindParam(':san_cedula', $san_cedula);
+                $stmt_activo->execute();
+                $date_end = $stmt_activo->fetchColumn();
 
-                $stmt = $dbconn->prepare($sql_insert); // Prepara la consulta de inserción
-                $stmt->bindParam(':san_cedula', $san_cedula); // Asocia parámetros con la consulta
-                $stmt->bindParam(':nombre', $nombre);
-                $stmt->bindParam(':fecha', $fecha);
-                $stmt->bindParam(':hora', $hora);
-                $stmt->bindParam(':ip', $ip);
-                $stmt->bindParam(':fecha_hora', $fecha_hora);
-                $stmt->bindParam(':hora_varchar', $hora_varchar);
+                if ($date_end === null) {
+                    // El usuario está activo, procede con la marcación
 
-                if ($stmt->execute()) { // Ejecuta la consulta de inserción
+                    $ip = strval($_SERVER['REMOTE_ADDR']); // Obtiene la dirección IP del cliente
+                    $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR'])); // Obtiene el nombre del equipo
+                    $fecha = date("Y/m/d"); // Obtiene la fecha actual
+                    $hora_varchar = $_POST['hora']; // Obtiene la hora en formato HH:MM:SS
 
-                    // Consulta SQL para obtener todas las marcaciones del día presente desde gpa_detalle_marcacion
-                    $sql_marcaciones = "SELECT hora_marcacion FROM gpa_detalle_marcacion WHERE name = :name AND fecha_creacion = :fecha_creacion";
-                    $stmt_marcaciones = $dbconn->prepare($sql_marcaciones);
-                    //$stmt_marcaciones->bindParam(':san_cedula', $san_cedula);
-                    $stmt_marcaciones->bindParam(':name', $nombre); // Utilizando el nombre como identificador del usuario
-                    //$stmt_marcaciones->bindParam(':fecha', $fecha);
-                    $stmt_marcaciones->bindParam(':fecha_creacion', $fecha);
-                    $stmt_marcaciones->execute();
-                    $marcaciones = $stmt_marcaciones->fetchAll(PDO::FETCH_ASSOC);
+                    // Convertir hora a float8
+                    $splitTime = explode(":", $hora_varchar); // Divide la hora por ":"
+                    $hora = $splitTime[0] + $splitTime[1] / 60 + $splitTime[2] / 3600; // Calcula el valor numérico decimal para float8
 
-                    // Formatear y devolver las marcaciones
-                    $mensaje_exitoso = "MARCACION_EXITOSA";
-                    if ($marcaciones) {
-                        $mensaje_exitoso .= "<br>Marcaciones del día: ";
-                        foreach ($marcaciones as $marcacion) {
-                            $mensaje_exitoso .= $marcacion['hora_marcacion'] . ", "; // Modificado para usar 'hora_marcacion'
-                        }
-                        $mensaje_exitoso = rtrim($mensaje_exitoso, ", "); // Elimina la última coma
-                    } // Fin consultas del día presente
+                    $fecha_hora = date("Y-m-d H:i:s"); // Obtiene la fecha y hora actual
 
-                    echo $mensaje_exitoso; // Indica que la marcación fue exitosa
-                    exit();
+                    $sql_insert = "INSERT INTO gpa_devicedata (usuario_cedula, usuario_name, fecha, hora, ip, fecha_hora, hora_varchar) 
+                                   VALUES (:san_cedula, :nombre, :fecha, :hora, :ip, :fecha_hora, :hora_varchar)"; // Consulta SQL para la inserción
+
+                    // Resto del código para la inserción y consulta de marcaciones...
+
+                    $stmt = $dbconn->prepare($sql_insert); // Prepara la consulta de inserción
+                    $stmt->bindParam(':san_cedula', $san_cedula); // Asocia parámetros con la consulta
+                    $stmt->bindParam(':nombre', $nombre);
+                    $stmt->bindParam(':fecha', $fecha);
+                    $stmt->bindParam(':hora', $hora);
+                    $stmt->bindParam(':ip', $ip);
+                    $stmt->bindParam(':fecha_hora', $fecha_hora);
+                    $stmt->bindParam(':hora_varchar', $hora_varchar);
+
+
+                    if ($stmt->execute()) { // Ejecuta la consulta de inserción
+
+                        // Consulta SQL para obtener todas las marcaciones del día presente desde gpa_detalle_marcacion
+                        $sql_marcaciones = "SELECT hora_marcacion FROM gpa_detalle_marcacion WHERE name = :name AND fecha_creacion = :fecha_creacion";
+                        $stmt_marcaciones = $dbconn->prepare($sql_marcaciones);
+                        //$stmt_marcaciones->bindParam(':san_cedula', $san_cedula);
+                        $stmt_marcaciones->bindParam(':name', $nombre); // Utilizando el nombre como identificador del usuario
+                        //$stmt_marcaciones->bindParam(':fecha', $fecha);
+                        $stmt_marcaciones->bindParam(':fecha_creacion', $fecha);
+                        $stmt_marcaciones->execute();
+                        $marcaciones = $stmt_marcaciones->fetchAll(PDO::FETCH_ASSOC);
+    
+                        // Formatear y devolver las marcaciones
+                        $mensaje_exitoso = "MARCACION_EXITOSA";
+                        if ($marcaciones) {
+                            $mensaje_exitoso .= "<br>Marcaciones del día: ";
+                            foreach ($marcaciones as $marcacion) {
+                                $mensaje_exitoso .= $marcacion['hora_marcacion'] . ", "; // Modificado para usar 'hora_marcacion'
+                            }
+                            $mensaje_exitoso = rtrim($mensaje_exitoso, ", "); // Elimina la última coma
+                        } // Fin consultas del día presente
+    
+                        echo $mensaje_exitoso; // Indica que la marcación fue exitosa
+                        exit();
+                    } else {
+                        http_response_code(500); // Responde con un código de error 500 si hay un problema en la inserción
+                        echo "ERROR_EN_INSERCION: Ha ocurrido un error al insertar en la base de datos. Consulta: " . $sql_insert;
+                        exit();
+                    }
                 } else {
-                    http_response_code(500); // Responde con un código de error 500 si hay un problema en la inserción
-                    echo "ERROR_EN_INSERCION: Ha ocurrido un error al insertar en la base de datos. Consulta: " . $sql_insert;
+                    // El usuario está inactivo, devuelve un mensaje de error
+                    http_response_code(403); // Responde con un código de error 403 (Prohibido)
+                    echo "USUARIO_INACTIVO";
                     exit();
                 }
             } else {

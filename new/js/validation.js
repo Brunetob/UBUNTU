@@ -9,15 +9,25 @@ $(function() {
         // Realiza una solicitud POST a srv.php con los datos del formulario
         $.post('test.php', { cedula: cedula, marcar: true }, function(data) { // Aquí es srv.php
             if (data.includes('ERROR')) {
-                showErrorAlert();
-            } else if (data.includes('EMPLEADO_NO_ENCONTRADO')) {
-                $('#usuario').val('Funcionario no existe');
+                showErrorAlert("Ha ocurrido un error en el servidor.");
             } else {
-                showSuccessAlert(data);
-                clearFormFields();
+                switch (data.trim()) {
+                    case 'EMPLEADO_NO_ENCONTRADO':
+                        showErrorAlert("Funcionario no encontrado.");
+                        break;
+                    case 'USUARIO_INACTIVO':
+                        showErrorAlert("El usuario está inactivo. No se puede realizar la marcación.");
+                        break;
+                    case 'MARCACION_EXITOSA':
+                        showSuccessAlert("Marcación exitosa");
+                        clearFormFields();
+                        break;
+                    default:
+                        showErrorAlert("Respuesta inesperada del servidor.");
+                }
             }
         }).fail(function() {
-            showErrorAlert();
+            showErrorAlert("Error en la solicitud al servidor.");
         });
     });
 
