@@ -1,0 +1,18 @@
+Peticiones:
+
+directorio carpeta new
+new
+|-css
+|-img
+|-js
+| |---validation.js
+|-conf.php
+|-index.php
+|-srv.php
+|-test.php
+
+realización de modularización
+
+
+
+
