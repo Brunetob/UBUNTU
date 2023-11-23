@@ -16,3 +16,25 @@ realización de modularización
 
 
 
+veo que como me dices que debería de estar, el orden de verificarEmpleadoActivo, marcarAsistencia y getNombreEmpleado, están al revés en mi test.php, es decir, en mi test.php tengo el siguiente orden:
+
+verificarEmpleadoActivo, getNombreEmpleado y marcarAsistencia
+
+mientras que tu me muestras que el orden debe ser:
+
+try {
+    $result = $employeeHandler->verificarEmpleadoActivo($san_cedula);
+
+    // ...
+
+    $result = $marcacionHandler->marcarAsistencia(
+        $san_cedula,
+        $employeeHandler->getNombreEmpleado($san_cedula), 
+        // ...
+    );
+} catch (Exception $e) {
+    // Manejo de errores
+}
+
+este es mi cpodigo actual de test.php
+
