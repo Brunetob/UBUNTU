@@ -22,6 +22,7 @@ try {
             try {
                 $result = $employeeHandler->verificarEmpleadoActivo($san_cedula);
 
+
                 if ($result) {
                     echo "EMPLEADO_ACTIVO";
                     exit();
