@@ -23,8 +23,8 @@ $(function() {
     });
 
     function handleCheckResponse(data) {
-        if (data.trim() === 'EMPLEADO_NO_ENCONTRADO') {
-            $('#usuario').val('Funcionario no existe');
+        if (data.trim() === 'EMPLEADO_NO_REGISTRADO') {
+            $('#usuario').val('Funcionario no registrado');
         } else {
             $('#usuario').val(data);
             markAttendance();
@@ -45,8 +45,8 @@ $(function() {
     function handleResponse(data) {
         if (data.includes('ERROR')) {
             showErrorAlert();
-        } else if (data.includes('EMPLEADO_NO_ENCONTRADO')) {
-            $('#usuario').val('Algo anda mal');
+        } else if (data.includes('EMPLEADO_NO_REGISTRADO')) {
+            $('#usuario').val('Funcionario no registrado');
         } else {
             showSuccessAlert(data);
             clearFormFields();

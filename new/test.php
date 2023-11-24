@@ -32,7 +32,7 @@ function checkEmployee($dbconn, $san_cedula) {
             exit();
         } else {
             http_response_code(404);
-            echo "EMPLEADO_NO_ENCONTRADO";
+            echo "EMPLEADO_NO_REGISTRADO";
             exit();
         }
     } catch (PDOException $e) {
@@ -71,7 +71,7 @@ function markAttendance($dbconn, $san_cedula) {
             }
         } else {
             http_response_code(404);
-            echo "EMPLEADO_NO_ENCONTRADO";
+            echo "EMPLEADO_NO_REGISTRADO";
             exit();
         }
     } catch (PDOException $e) {
