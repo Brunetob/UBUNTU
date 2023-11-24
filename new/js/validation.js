@@ -7,7 +7,7 @@ $(function() {
         let cedula = $('#cedula').val();
 
         // Realiza una solicitud POST a srv.php con los datos del formulario
-        $.post('test.php', { cedula: cedula, marcar: true }, function(data) { // Aquí es srv.php
+        $.post('srv.php', { cedula: cedula, marcar: true }, function(data) { // Aquí es srv.php
             if (data.includes('ERROR')) {
                 showErrorAlert();
             } else if (data.includes('EMPLEADO_NO_ENCONTRADO')) {
@@ -28,7 +28,7 @@ $(function() {
             $('#usuario').val(''); // Limpiar el campo de usuario si la cédula se borra
             // Si la longitud de la cedula es igual a 10, realiza una solicitud POST a srv.php
         } else if (cedula.length === 10) {
-            $.post('test.php', { cedula: cedula, check: true }, function(data) { // Aquí es srv.php
+            $.post('srv.php', { cedula: cedula, check: true }, function(data) { // Aquí es srv.php
                 if (data.trim() === 'EMPLEADO_NO_ENCONTRADO') {
                     $('#usuario').val('Funcionario no existe'); // Mostrar mensaje cuando el empleado no existe
                 } else {
@@ -48,7 +48,7 @@ $(function() {
         let now = new Date();
         let formattedTime = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
       
-        $.post('test.php', { cedula: cedula, hora: formattedTime, marcar: true }, function(data) { // Aquí es srv.php
+        $.post('srv.php', { cedula: cedula, hora: formattedTime, marcar: true }, function(data) { // Aquí es srv.php
             if (data.trim() === 'ERROR') {
                 showErrorAlert();
             } else if (data.trim() === 'EMPLEADO_NO_ENCONTRADO') {
