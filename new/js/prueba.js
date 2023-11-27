@@ -64,12 +64,37 @@ $(function() {
         });
     }
 
-    function showErrorAlert() {
+    /*function showErrorAlert() {
         Swal.fire({
             title: 'Algo salió mal.',
             text: 'Error en la solicitud.',
             type: 'error'
         });
+    }*/
+    function showErrorAlert(data) {
+        switch (data) {
+            case 'EMPLEADO_NO_REGISTRADO':
+                Swal.fire({
+                    title: 'Algo salió mal.',
+                    text: 'Funcionario no registrado.',
+                    type: 'error'
+                });
+                break;
+            case 'ERROR':
+                Swal.fire({
+                    title: 'Algo salió mal.',
+                    text: 'Error en la solicitud.',
+                    type: 'error'
+                });
+                break;
+            default:
+                Swal.fire({
+                    title: 'Algo salió mal.',
+                    text: 'Error en la solicitud.',
+                    type: 'error'
+                });
+                break;
+        }
     }
 
     function clearFormFields() {
