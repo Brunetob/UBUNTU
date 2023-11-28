@@ -148,7 +148,38 @@ function insertAttendance($dbconn, $san_cedula, $nombre, $fecha, $hora, $ip, $fe
 }
 
 // Esta función obtiene las marcaciones del día
-function getDayAttendances($dbconn, $nombre, $fecha) { // 
+function getDayAttendances($dbconn, $nombre, $fecha) {
+    $sql = "SELECT hora_marcacion FROM gpa_detalle_marcacion WHERE name = :name AND fecha_creacion = :fecha_creacion";
+
+    try {
+        $stmt = $dbconn->prepare($sql);
+        $stmt->bindParam(':name', $nombre);
+        $stmt->bindParam(':fecha_creacion', $fecha);
+        $stmt->execute();
+        $marcaciones = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        $mensaje_exitoso = "MARCACION_EXITOSA"; 
+        if ($marcaciones) {
+            $mensaje_exitoso .= "<br>Marcaciones del día: ";
+            foreach ($marcaciones as $marcacion) {
+                $hora_float = $marcacion['hora_marcacion'];
+                $hours = floor($hora_float);
+                $minutes = floor(($hora_float - $hours) * 60);
+                $seconds = round((($hora_float - $hours) * 60 - $minutes) * 60);
+                $hora_formateada = sprintf("%02d", $hours) . ":" . sprintf("%02d", $minutes) . ":" . sprintf("%02d", $seconds);
+                $mensaje_exitoso .= $hora_formateada . ", ";
+            }
+            $mensaje_exitoso = rtrim($mensaje_exitoso, ", ");
+        }
+
+        echo $mensaje_exitoso;
+        exit();
+    } catch (PDOException $e) {
+        handleError($e);
+    }
+}
+
+/*function getDayAttendances($dbconn, $nombre, $fecha) { // 
     // Define la consulta SQL para obtener las marcaciones del día
     $sql = "SELECT hora_marcacion FROM gpa_detalle_marcacion WHERE name = :name AND fecha_creacion = :fecha_creacion";
 
@@ -173,7 +204,7 @@ function getDayAttendances($dbconn, $nombre, $fecha) { //
     } catch (PDOException $e) {
         handleError($e);
     }
-}
+}*/
 
 function convertToFloat8($hora_varchar) { // Convierte una hora en formato varchar a float8
     $splitTime = explode(":", $hora_varchar);

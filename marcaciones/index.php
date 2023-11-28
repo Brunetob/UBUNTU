@@ -7,6 +7,7 @@
     <meta charset='utf-8'>
     <meta name='viewport' content='width=device-width, initial-scale=1'>
     <title>Marcación GPA</title>
+    <link rel="icon" href="img/logoicon.ico" type="image/x-icon">
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css"><!-- Enlace a la hoja de estilos -->
     <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>

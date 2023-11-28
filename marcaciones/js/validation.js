@@ -193,10 +193,10 @@ $(function() {
         });
     });
 
-    /*$(document).ready(function(){
+    $(document).ready(function(){
         // Deshabilitar cortar, copiar y pegar en el campo de cédula
         $('#cedula').on("cut copy paste", function(e) {
             e.preventDefault();
         });
-    });*/
+    });
 });
