@@ -47,7 +47,7 @@ $(function() {
         // Obtiene la hora actual en formato HH:MM:SS
         let now = new Date();
         let formattedTime = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-      
+        
         $.post('srv.php', { cedula: cedula, hora: formattedTime, marcar: true }, function(data) { // Aquí es srv.php
             if (data.trim() === 'ERROR') {
                 showErrorAlert();
