@@ -2,7 +2,7 @@ $(function() {
     $('#marcacionform').submit(function(e) {
         e.preventDefault();
         let cedula = $('#cedula').val();
-        $.post('srv.php', { cedula: cedula, marcar: true }, function(data) {
+        $.post('test.php', { cedula: cedula, marcar: true }, function(data) { // aquí va srv.php
             handleResponse(data);
         }).fail(function() {
             showErrorAlert();
@@ -14,7 +14,7 @@ $(function() {
         if (cedula.length === 0) {
             $('#usuario').val('');
         } else if (cedula.length === 10) {
-            $.post('srv.php', { cedula: cedula, check: true }, function(data) {
+            $.post('test.php', { cedula: cedula, check: true }, function(data) { // aquí va srv.php
                 handleCheckResponse(data);
             }).fail(function() {
                 showErrorAlert();
@@ -35,7 +35,7 @@ $(function() {
         let cedula = $('#cedula').val();
         let now = new Date();
         let formattedTime = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
-        $.post('srv.php', { cedula: cedula, hora: formattedTime, marcar: true }, function(data) {
+        $.post('test.php', { cedula: cedula, hora: formattedTime, marcar: true }, function(data) { // aquí va srv.php
             handleResponse(data);
         }).fail(function() {
             showErrorAlert();

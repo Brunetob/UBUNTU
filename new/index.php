@@ -47,7 +47,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
     <!--Inicio cambios-->
-    <script src="js/prueba.js" type="text/javascript">
+    <script src="js/validation.js" type="text/javascript">
         //código movido a la carpeta js--> validation.js
     </script>
     <!--Fin cambios-->
