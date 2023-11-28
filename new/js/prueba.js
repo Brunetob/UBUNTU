@@ -15,10 +15,10 @@ $(function() {
             // 'data' contiene la respuesta del servidor
             // La función 'handleResponse' se encarga de manejar la respuesta
             handleResponse(data);
-        }).fail(function() {
+        }).fail(function(error) { //* aquí iba vacío
             // Esta función se ejecuta si la petición falla
             // La función 'showErrorAlert' se encarga de mostrar una alerta de error
-            showErrorAlert();
+            showErrorAlert(error); //* aquí iba vacío
         });
     });
 
@@ -120,12 +120,14 @@ $(function() {
         });
     }
 
-    function showErrorAlert() {
-        Swal.fire({
+    function showErrorAlert(error) {
+        console.log(error);
+        alert('Ocurrion un error: ' + error.responseText)
+        /*Swal.fire({
             title: 'Algo salió mal.',
-            text: 'Error en la solicitud ERROR 500',
+            text: 'Error en la solicitud',
             type: 'error'
-        });
+        });*/
     }
 
     function clearFormFields() {
