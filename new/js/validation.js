@@ -105,7 +105,7 @@ $(function() {
      * Borra los campos del formulario después de mostrar el mensaje de éxito.
      * @param {string} data - Los datos de respuesta del servidor.
      */
-    function showSuccessAlert(data) {
+    function showSuccessAlert(data) {   
         console.log(data);
         Swal.fire({
             title: 'Marcación Exitosa',
