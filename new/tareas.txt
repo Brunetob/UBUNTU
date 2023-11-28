@@ -14,3 +14,16 @@ new
 realización de modularización 23/11/2023
 - prueba dos de modularización 24/11/2023
 realizar modularización del código del archivo test.php
+
+Explicación función de pasar hora a hora varchar8
+Esta línea de código realiza un cálculo para convertir una lista de tiempo dividido en horas, minutos y segundos en un valor decimal que representa el tiempo total en horas.
+
+El código toma un arreglo llamado $splitTime que contiene tres elementos: $splitTime[0] representa las horas, $splitTime[1] representa los minutos y $splitTime[2] representa los segundos.
+
+La línea de código suma las horas directamente ($splitTime[0]), luego divide los minutos ($splitTime[1]) entre 60 para convertirlos a horas y los segundos ($splitTime[2]) entre 3600 para convertirlos a horas. Finalmente, suma todos estos valores para obtener el tiempo total en horas.
+
+Por ejemplo, si $splitTime es igual a [2, 30, 45], la línea de código calculará 2 + 30/60 + 45/3600, lo cual resultará en 2.5125, que representa 2 horas, 30 minutos y 45 segundos en formato decimal.Esta línea de código realiza un cálculo para convertir una lista de tiempo dividido en horas, minutos y segundos en un valor decimal que representa el tiempo total en horas.
+
+El código toma un arreglo llamado $splitTime que contiene tres elementos: $splitTime[0] representa las horas, $splitTime[1] representa los minutos y $splitTime[2] representa los segundos.
+
+La línea de código suma las horas directamente ($splitTime[0]), luego divide los minutos ($splitTime[1])
