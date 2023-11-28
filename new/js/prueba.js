@@ -41,10 +41,10 @@ $(function() {
                 // 'data' contiene la respuesta del servidor
                 // La función 'handleCheckResponse' se encarga de manejar la respuesta
                 handleCheckResponse(data);
-            }).fail(function() {
+            }).fail(function(error) { //* aquí iba vacío
                 // Esta función se ejecuta si la petición falla
                 // La función 'showErrorAlert' se encarga de mostrar una alerta de error
-                showErrorAlert();
+                showErrorAlert(error); //* aquí iba vacío
             });
         }
     });
@@ -80,10 +80,10 @@ $(function() {
             // 'data' contiene la respuesta del servidor
             // La función 'handleResponse' se encarga de manejar la respuesta
             handleResponse(data);
-        }).fail(function() {
+        }).fail(function(error) { //* aquí iba vacío
             // Esta función se ejecuta si la petición falla
             // La función 'showErrorAlert' se encarga de mostrar una alerta de error
-            showErrorAlert();
+            showErrorAlert(error); //* aquí iba vacío
         });
     }
 
@@ -124,7 +124,7 @@ $(function() {
         console.log(error);
         let title = 'Algo salió mal.';
         let text = 'Error en la solicitud';
-    
+
         switch (error.responseText) {
             case 'EMPLEADO_NO_REGISTRADO':
                 text = 'Empleado no registrado';
