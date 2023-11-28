@@ -122,12 +122,26 @@ $(function() {
 
     function showErrorAlert(error) {
         console.log(error);
-        alert('Ocurrion un error: ' + error.responseText)
-        /*Swal.fire({
-            title: 'Algo salió mal.',
-            text: 'Error en la solicitud',
+        let title = 'Algo salió mal.';
+        let text = 'Error en la solicitud';
+    
+        switch (error.responseText) {
+            case 'EMPLEADO_NO_REGISTRADO':
+                text = 'Empleado no registrado';
+                break;
+            case 'USUARIO_INACTIVO':
+                text = 'Usuario inactivo';
+                break;
+            // Agrega más casos según sea necesario
+            default:
+                text = 'Error desconocido';
+        }
+    
+        Swal.fire({
+            title: title,
+            text: text,
             type: 'error'
-        });*/
+        });
     }
 
     function clearFormFields() {
