@@ -15,20 +15,20 @@
 <body>
 
 <!--Cambios para el menú-->
-<div id="menu-toggle">&#9776;</div>
-
+<div id="menu-toggle"><abbr title="Desplegar Menú">&#9776;</abbr></div>
     <div id="menu-container">
-        <form action="logout.php" method="post">
-            <input type="submit" name="button1" value="Cerrar Sesión" />
+        <form action="../../start/index.php" method="post">
+            <input type="submit" name="button1" value="Inicio" />
+        </form>      
+        <form action="../../consult/index.php" method="post" target="_black">
+            <input type="submit" name="button1" value="Convenios" />
         </form>
+        <form action="../../usuario-beneficiario/user-form/src/public/index.html" method="get" target="_black">
+            <input type="submit" name="button2" value="Reporte de beneficiarios" />
+        </form>
+        <form action="../../usuario-beneficiario/seeker/src/public/index.html" method="get" target="_black">
+            <input type="submit" name="button3" value="Buscador" />
     </div>
-
-    <script>
-        document.getElementById('menu-toggle').addEventListener('click', function () {
-            var menuContainer = document.getElementById('menu-container');
-            menuContainer.style.left = (menuContainer.style.left === '0px') ? '-250px' : '0px';
-        });
-    </script>
 <!--Fin cambios para el menú-->
 
 <div class="wrapper">
@@ -59,7 +59,7 @@
             <div class="connect border-bottom mt-4 mb-4"></div>
             <div class="terms mb-2">
                 Realizar sus 4 marcaciones diarias: 8:AM, 4:30 AM y su media hora de almuerzo.
-                <a href="https://www.azuay.gob.ec"> Volver a la página de la prefectura</a>.
+                <!--<a href="https://www.azuay.gob.ec"> Volver a la página de la prefectura</a>.-->
             </div>    
         </form>
     </div>

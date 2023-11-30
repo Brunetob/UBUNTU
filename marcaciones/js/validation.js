@@ -199,4 +199,10 @@ $(function() {
             e.preventDefault();
         });
     });
+
+    //* Código de implementación de menú lateral
+    document.getElementById('menu-toggle').addEventListener('click', function () {
+        var menuContainer = document.getElementById('menu-container');
+        menuContainer.style.left = (menuContainer.style.left === '0px') ? '-250px' : '0px';
+    });
 });
