@@ -15,7 +15,7 @@
 <body>
 
 <!--Cambios para el menú-->
-<div id="menu-toggle"><abbr title="Desplegar Menú">&#9776;</abbr></div>
+<div id="menu-toggle">&#9776;</div>
     <div id="menu-container">
         <form action="../../start/index.php" method="post">
             <input type="submit" name="button1" value="Inicio" />
