@@ -193,7 +193,6 @@ body {
 .btn-primary, .btn-primary:hover, .btn-primary:active, .btn-primary:visited {
     background-color: #023e8a!important;
     font-weight : bold ;
-    background-color: #4CAF50;
 }
 
 /*Cambios Menú*/
@@ -204,6 +203,7 @@ body {
     height: 100%;
     background-color: #c3c0c0;
     transition: left 0.3s ease;
+    z-index: 5;
 }
 
 #menu-container form {
@@ -211,7 +211,7 @@ body {
     flex-direction: column;
     padding: 20px;
     color: white;
-    z-index: 5;
+    background-color: #4CAF50;
 }
 
 #menu-toggle {
