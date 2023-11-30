@@ -13,6 +13,24 @@
     <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
 </head>
 <body>
+
+<!--Cambios para el menú-->
+<div id="menu-toggle">&#9776;</div>
+
+    <div id="menu-container">
+        <form action="logout.php" method="post">
+            <input type="submit" name="button1" value="Cerrar Sesión" />
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function () {
+            var menuContainer = document.getElementById('menu-container');
+            menuContainer.style.left = (menuContainer.style.left === '0px') ? '-250px' : '0px';
+        });
+    </script>
+<!--Fin cambios para el menú-->
+
 <div class="wrapper">
         <form action="index.php" method="post" id="marcacionform">
             <div class="container-fluid">
