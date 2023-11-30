@@ -211,7 +211,7 @@ body {
     flex-direction: column;
     padding: 20px;
     color: white;
-    z-index: 2;
+    z-index: 5;
 }
 
 #menu-toggle {
