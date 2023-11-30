@@ -24,10 +24,11 @@
             <input type="submit" name="button1" value="Convenios" />
         </form>
         <form action="../../usuario-beneficiario/user-form/src/public/index.html" method="get" target="_black">
-            <input type="submit" name="button2" value="Reporte de beneficiarios" />
+            <input type="submit" name="button2" value="Formulario de datos" />
         </form>
         <form action="../../usuario-beneficiario/seeker/src/public/index.html" method="get" target="_black">
-            <input type="submit" name="button3" value="Buscador" />
+            <input type="submit" name="button3" value="Reporte de beneficiarios" />
+        </form>
     </div>
 <!--Fin cambios para el menú-->
 
