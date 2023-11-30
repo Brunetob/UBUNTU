@@ -230,7 +230,7 @@ body {
     width: 230px;
     height: 30px;
     padding: 20px;
-    color: white;
+    color: white !important;
 }
 
 .menu-toggle {
