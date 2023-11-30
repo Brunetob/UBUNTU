@@ -15,21 +15,13 @@
 <body>
 
 <!--Cambios para el menú-->
-<div id="menu-toggle">&#9776;</div>
-    <div id="menu-container">
-        <form action="../../start/index.php" method="post">
-            <input type="submit" name="button1" value="Inicio" />
-        </form>      
-        <form action="../../consult/index.php" method="post" target="_black">
-            <input type="submit" name="button1" value="Convenios" />
-        </form>
-        <form action="../../usuario-beneficiario/user-form/src/public/index.html" method="get" target="_black">
-            <input type="submit" name="button2" value="Formulario de datos" />
-        </form>
-        <form action="../../usuario-beneficiario/seeker/src/public/index.html" method="get" target="_black">
-            <input type="submit" name="button3" value="Reporte de beneficiarios" />
-        </form>
-    </div>
+<div class="menu-toggle">&#9776;</div>
+<div class="menu-container">
+    <a href="../../start/index.php" class="menu-container__link">Inicio</a>
+    <a href="../../usuario-beneficiario/user-form/src/public/index.html" class="menu-container__link">Formulario de Datos</a>
+    <a href="../../consult/index.php" class="menu-container__link">Convenios</a>
+    <a href="../../usuario-beneficiario/seeker/src/public/index.html" class="menu-container__link">Reporte de beneficiarios</a>
+</div>
 <!--Fin cambios para el menú-->
 
 <div class="wrapper">
