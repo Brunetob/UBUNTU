@@ -204,7 +204,8 @@ body {
 .menu-container {
     position: fixed;
     top: 0;
-    left: -250px;
+    /*left: -250px; // Sin esto el menú aparece mostrado por defecto*/
+    left: 0px; /*Por defecto aparece le menú mostrado pero con suspropiedades de ocultarse*/
     z-index: 2;
 
     display: flex;

@@ -203,6 +203,6 @@ $(function() {
     //* Código de implementación de menú lateral
     const $toogleMenu = document.querySelector(".menu-container");
     document.querySelector(".menu-toggle").addEventListener("click", () => {
-        $toogleMenu.style.left = $toogleMenu.style.left === "0px" ? "-250px" : "0px";
+        $toogleMenu.style.left = $toogleMenu.style.left === "-250px" ? "0px" : "-250px"; // Se mantienen pordefecto las propiedades de la izquierda para ocultar el menú en caso de necesitarlo
     });
 });
