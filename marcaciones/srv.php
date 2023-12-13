@@ -76,34 +76,31 @@ function markAttendance($dbconn, $san_cedula) {
 
             $date_end = checkEmployeeStatus($dbconn, $san_cedula); // Verifica el estado del empleado
 
-
             // Todos: Verificación de 'hora' en $_POST
             if (isset($_POST['hora'])) {
                 $hora_varchar = $_POST['hora'];
                 $hora = convertToFloat8($hora_varchar);
+
+                if ($date_end === null) {
+                    // El usuario está activo, procede con la marcación de asistencia
+                    $ip = strval($_SERVER['REMOTE_ADDR']);
+                    $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR']));
+                    $fecha = date("Y/m/d");
+                    $fecha_hora = date("Y-m-d H:i:s");
+
+                    // Inserta la marcación de asistencia en la base de datos y obtiene las marcaciones del día
+                    insertAttendance($dbconn, $san_cedula, $nombre, $fecha, $hora, $ip, $fecha_hora, $hora_varchar); 
+                } else {
+                    http_response_code(403); // El usuario está inactivo, establece el código de respuesta HTTP a 403
+                    echo "USUARIO_INACTIVO";
+                    exit();
+                }
             } else {
-                // Manejo de la situación en la que 'hora' no está presente en $_POST
                 http_response_code(400); // Bad Request
                 echo "ERROR: La hora no está presente en la solicitud.";
                 exit();
-            }
+            } // TOdos: Verificación de 'hora' en $_POST
 
-            if ($date_end === null) {
-                // El usuario está activo, procede con la marcación de asistencia
-                $ip = strval($_SERVER['REMOTE_ADDR']);
-                $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR']));
-                $fecha = date("Y/m/d");
-                // $hora_varchar = $_POST['hora'];
-                // $hora = convertToFloat8($hora_varchar);
-                $fecha_hora = date("Y-m-d H:i:s");
-
-                // Inserta la marcación de asistencia en la base de datos y obtiene las marcaciones del día
-                insertAttendance($dbconn, $san_cedula, $nombre, $fecha, $hora, $ip, $fecha_hora, $hora_varchar); 
-            } else {
-                http_response_code(403); // El usuario está inactivo, establece el código de respuesta HTTP a 403
-                echo "USUARIO_INACTIVO";
-                exit();
-            }
         } else {
             http_response_code(404); // Si no se encontró una fila, es decir, si el empleado no existe
             echo "EMPLEADO_NO_REGISTRADO";
