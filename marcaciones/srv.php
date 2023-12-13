@@ -76,13 +76,25 @@ function markAttendance($dbconn, $san_cedula) {
 
             $date_end = checkEmployeeStatus($dbconn, $san_cedula); // Verifica el estado del empleado
 
+
+            // Todos: Verificación de 'hora' en $_POST
+            if (isset($_POST['hora'])) {
+                $hora_varchar = $_POST['hora'];
+                $hora = convertToFloat8($hora_varchar);
+            } else {
+                // Manejo de la situación en la que 'hora' no está presente en $_POST
+                http_response_code(400); // Bad Request
+                echo "ERROR: La hora no está presente en la solicitud.";
+                exit();
+            }
+
             if ($date_end === null) {
                 // El usuario está activo, procede con la marcación de asistencia
                 $ip = strval($_SERVER['REMOTE_ADDR']);
                 $equipo = strval(gethostbyaddr($_SERVER['REMOTE_ADDR']));
                 $fecha = date("Y/m/d");
-                $hora_varchar = $_POST['hora'];
-                $hora = convertToFloat8($hora_varchar);
+                // $hora_varchar = $_POST['hora'];
+                // $hora = convertToFloat8($hora_varchar);
                 $fecha_hora = date("Y-m-d H:i:s");
 
                 // Inserta la marcación de asistencia en la base de datos y obtiene las marcaciones del día
