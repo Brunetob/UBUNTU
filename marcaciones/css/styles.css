@@ -25,8 +25,10 @@ body {
     border-top: 1px solid #ffffff6e;
     border-left: 1px solid #ffffff6e;
     border-radius: 15px;
+    /*Tamaño*/
+    height: 770px;
 }
- 
+
 .wrapper .h5 {
     color: #ddd;
 }
@@ -141,6 +143,7 @@ body {
     color: #bbb;
     font-size: 0.85rem;
     text-align: center;
+    margin-top: 45px;
 }
 
 .wrapper .terms a {
@@ -160,7 +163,7 @@ body {
     content: "RECUERDE";
     font-weight: bold;
     position: absolute;
-    top: -12px;
+    top: 20px; /*here*/
     width:80px;
     left: 39%;
     text-align: center;
