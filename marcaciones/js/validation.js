@@ -57,10 +57,13 @@ $(function() {
             // Si la respuesta del servidor es cualquier otra cosa
             // Establece el valor del campo de entrada con el ID 'usuario' a la respuesta del servidor
             $('#usuario').val(data);
-            // Llama a la función 'markAttendance' para marcar la asistencia del empleado
-            markAttendance();
         }
     }
+
+    // Todos: esta función realiza la marcación al esperarse el evento 'click' en el botón con el ID 'submit'
+    $('#submit').click(function() {
+        markAttendance();
+    });
 
     // Esta función se encarga de marcar la asistencia del empleado
     function markAttendance() {
